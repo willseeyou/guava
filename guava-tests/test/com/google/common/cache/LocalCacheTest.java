@@ -641,6 +641,7 @@ public class LocalCacheTest extends TestCase {
     assertEquals(1, segment.count);
   }
 
+  @AndroidIncompatible // Perhaps emulator clock does not update between the two get() calls?
   public void testComputeExpiredEntry() throws ExecutionException {
     CacheBuilder<Object, Object> builder = createCacheBuilder()
         .expireAfterWrite(1, TimeUnit.NANOSECONDS);
@@ -1564,6 +1565,14 @@ public class LocalCacheTest extends TestCase {
       assertTrue(count <= (segment.table.length() * 3 / 4));
       assertTrue(count > (segment.table.length() * 3 / 8));
     }
+  }
+
+  public void testGetOrDefault() {
+    LocalCache<Object, Object> map =
+        makeLocalCache(createCacheBuilder().concurrencyLevel(1).initialCapacity(1));
+    map.put(1, 1);
+    assertEquals(1, map.getOrDefault(1, 2));
+    assertEquals(2, map.getOrDefault(2, 2));
   }
 
   public void testPutCausesExpansion() {

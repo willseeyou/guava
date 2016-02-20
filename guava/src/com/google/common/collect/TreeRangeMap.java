@@ -52,7 +52,7 @@ import javax.annotation.Nullable;
  * @since 14.0
  */
 @Beta
-@GwtIncompatible("NavigableMap")
+@GwtIncompatible // NavigableMap
 public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, V> {
 
   private final NavigableMap<Cut<K>, RangeMapEntry<K, V>> entriesByLowerBound;
@@ -299,7 +299,7 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
         public void putAll(RangeMap rangeMap) {
           if (!rangeMap.asMapOfRanges().isEmpty()) {
             throw new IllegalArgumentException(
-                "Cannot putAll(nonEmptyRangeMap) into an empty " + "subRangeMap");
+                "Cannot putAll(nonEmptyRangeMap) into an empty subRangeMap");
           }
         }
 

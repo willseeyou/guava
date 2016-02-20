@@ -167,8 +167,9 @@ public class RateLimiterTest extends TestCase {
   }
 
   public void testCreateWarmupParameterValidation() {
-    RateLimiter.create(1.0, 1, NANOSECONDS);
-    RateLimiter.create(1.0, 0, NANOSECONDS);
+    RateLimiter unused;
+    unused = RateLimiter.create(1.0, 1, NANOSECONDS);
+    unused = RateLimiter.create(1.0, 0, NANOSECONDS);
 
     try {
       RateLimiter.create(0.0, 1, NANOSECONDS);
@@ -183,7 +184,7 @@ public class RateLimiterTest extends TestCase {
     }
   }
 
-  @SuppressUnderAndroid // difference in String.format rounding?
+  @AndroidIncompatible // difference in String.format rounding?
   public void testWarmUp() {
     RateLimiter limiter = RateLimiter.create(stopwatch, 2.0, 4000, MILLISECONDS, 3.0);
     for (int i = 0; i < 8; i++) {
@@ -249,7 +250,7 @@ public class RateLimiterTest extends TestCase {
         "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20"); // #3
   }
 
-  @SuppressUnderAndroid // difference in String.format rounding?
+  @AndroidIncompatible // difference in String.format rounding?
   public void testWarmUpAndUpdate() {
     RateLimiter limiter = RateLimiter.create(stopwatch, 2.0, 4000, MILLISECONDS, 3.0);
     for (int i = 0; i < 8; i++) {
@@ -541,7 +542,7 @@ public class RateLimiterTest extends TestCase {
     }
 
     @Override
-    void sleepMicrosUninterruptibly(long micros) {
+    protected void sleepMicrosUninterruptibly(long micros) {
       sleepMicros("R", micros);
     }
 
@@ -569,7 +570,7 @@ public class RateLimiterTest extends TestCase {
     doTestMocking(mock);
   }
 
-  @SuppressUnderAndroid // EasyMock Class Extension doesn't appear to work on Android.
+  @AndroidIncompatible // EasyMock Class Extension doesn't appear to work on Android.
   public void testMockingEasyMock() throws Exception {
     RateLimiter mock = EasyMock.createNiceMock(RateLimiter.class);
     EasyMock.replay(mock);

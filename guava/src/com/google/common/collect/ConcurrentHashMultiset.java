@@ -22,6 +22,7 @@ import static com.google.common.collect.CollectPreconditions.checkNonnegative;
 import static com.google.common.collect.CollectPreconditions.checkRemove;
 
 import com.google.common.annotations.Beta;
+import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Serialization.FieldSetter;
 import com.google.common.math.IntMath;
@@ -55,6 +56,7 @@ import javax.annotation.Nullable;
  * @author mike nonemacher
  * @since 2.0
  */
+@GwtIncompatible
 public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> implements Serializable {
 
   /*
@@ -508,7 +510,8 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     // remove(), we create an AbstractIterator, and then use ForwardingIterator to delegate to it.
     final Iterator<Entry<E>> readOnlyIterator =
         new AbstractIterator<Entry<E>>() {
-          private Iterator<Map.Entry<E, AtomicInteger>> mapEntries = countMap.entrySet().iterator();
+          private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
+              countMap.entrySet().iterator();
 
           @Override
           protected Entry<E> computeNext() {

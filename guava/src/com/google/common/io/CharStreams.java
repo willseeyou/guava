@@ -20,6 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndexes;
 
 import com.google.common.annotations.Beta;
+import com.google.common.annotations.GwtIncompatible;
 
 import java.io.Closeable;
 import java.io.EOFException;
@@ -46,6 +47,7 @@ import java.util.List;
  * @since 1.0
  */
 @Beta
+@GwtIncompatible
 public final class CharStreams {
   private static final int BUF_SIZE = 0x800; // 2K chars (4K bytes)
 
@@ -253,32 +255,5 @@ public final class CharStreams {
       return (Writer) target;
     }
     return new AppendableWriter(target);
-  }
-
-  // TODO(cgdecker): Remove these once Input/OutputSupplier methods are removed
-
-  static Reader asReader(final Readable readable) {
-    checkNotNull(readable);
-    if (readable instanceof Reader) {
-      return (Reader) readable;
-    }
-    return new Reader() {
-      @Override
-      public int read(char[] cbuf, int off, int len) throws IOException {
-        return read(CharBuffer.wrap(cbuf, off, len));
-      }
-
-      @Override
-      public int read(CharBuffer target) throws IOException {
-        return readable.read(target);
-      }
-
-      @Override
-      public void close() throws IOException {
-        if (readable instanceof Closeable) {
-          ((Closeable) readable).close();
-        }
-      }
-    };
   }
 }

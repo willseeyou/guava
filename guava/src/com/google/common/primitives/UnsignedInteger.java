@@ -25,7 +25,6 @@ import com.google.common.annotations.GwtIncompatible;
 
 import java.math.BigInteger;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 
 /**
@@ -41,7 +40,6 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  * @since 11.0
  */
-@CheckReturnValue
 @GwtCompatible(emulated = true)
 public final class UnsignedInteger extends Number implements Comparable<UnsignedInteger> {
   public static final UnsignedInteger ZERO = fromIntBits(0);
@@ -146,7 +144,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
    *
    * @since 14.0
    */
-  @GwtIncompatible("Does not truncate correctly")
+  @GwtIncompatible // Does not truncate correctly
   public UnsignedInteger times(UnsignedInteger val) {
     // TODO(lowasser): make this GWT-compatible
     return fromIntBits(value * checkNotNull(val).value);

@@ -33,6 +33,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.math.IntMath;
 import com.google.common.primitives.Ints;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import java.io.Serializable;
 import java.math.RoundingMode;
@@ -66,6 +67,7 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  * @since 2.0
  */
+@CheckReturnValue
 @GwtCompatible(emulated = true)
 public final class Lists {
   private Lists() {}
@@ -106,6 +108,7 @@ public final class Lists {
    * calling {@link Collections#addAll}. This method is not actually very useful
    * and will likely be deprecated in the future.
    */
+  @CanIgnoreReturnValue // TODO(kak): Remove this
   @GwtCompatible(serializable = true)
   public static <E> ArrayList<E> newArrayList(E... elements) {
     checkNotNull(elements); // for GWT
@@ -139,6 +142,7 @@ public final class Lists {
    * {@linkplain ArrayList#ArrayList(Collection) constructor} directly, taking
    * advantage of the new <a href="http://goo.gl/iz2Wi">"diamond" syntax</a>.
    */
+  @CanIgnoreReturnValue // TODO(kak): Remove this
   @GwtCompatible(serializable = true)
   public static <E> ArrayList<E> newArrayList(Iterable<? extends E> elements) {
     checkNotNull(elements); // for GWT
@@ -156,6 +160,7 @@ public final class Lists {
    * <p><b>Note:</b> if mutability is not required and the elements are
    * non-null, use {@link ImmutableList#copyOf(Iterator)} instead.
    */
+  @CanIgnoreReturnValue // TODO(kak): Remove this
   @GwtCompatible(serializable = true)
   public static <E> ArrayList<E> newArrayList(Iterator<? extends E> elements) {
     ArrayList<E> list = newArrayList();
@@ -268,7 +273,7 @@ public final class Lists {
    * @return a new, empty {@code CopyOnWriteArrayList}
    * @since 12.0
    */
-  @GwtIncompatible("CopyOnWriteArrayList")
+  @GwtIncompatible // CopyOnWriteArrayList
   public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList() {
     return new CopyOnWriteArrayList<E>();
   }
@@ -280,7 +285,7 @@ public final class Lists {
    * @return a new {@code CopyOnWriteArrayList} containing those elements
    * @since 12.0
    */
-  @GwtIncompatible("CopyOnWriteArrayList")
+  @GwtIncompatible // CopyOnWriteArrayList
   public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList(
       Iterable<? extends E> elements) {
     // We copy elements to an ArrayList first, rather than incurring the
@@ -325,7 +330,7 @@ public final class Lists {
 
     @Override
     public int size() {
-      return rest.length + 1;
+      return IntMath.saturatedAdd(rest.length, 1);
     }
 
     @Override
@@ -374,7 +379,7 @@ public final class Lists {
 
     @Override
     public int size() {
-      return rest.length + 2;
+      return IntMath.saturatedAdd(rest.length, 2);
     }
 
     @Override
@@ -549,7 +554,6 @@ public final class Lists {
    * then serialize the copy. Other methods similar to this do not implement
    * serialization at all for this reason.
    */
-  @CheckReturnValue
   public static <F, T> List<T> transform(
       List<F> fromList, Function<? super F, ? extends T> function) {
     return (fromList instanceof RandomAccess)
@@ -820,7 +824,6 @@ public final class Lists {
    *
    * @since 7.0
    */
-  @CheckReturnValue
   public static <T> List<T> reverse(List<T> list) {
     if (list instanceof ImmutableList) {
       return ((ImmutableList<T>) list).reverse();

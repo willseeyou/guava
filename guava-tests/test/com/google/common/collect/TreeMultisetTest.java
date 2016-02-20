@@ -51,7 +51,7 @@ import java.util.SortedSet;
 @GwtCompatible(emulated = true)
 public class TreeMultisetTest extends TestCase {
 
-  @GwtIncompatible("suite")
+  @GwtIncompatible // suite
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(SortedMultisetTestSuiteBuilder
@@ -352,8 +352,8 @@ public class TreeMultisetTest extends TestCase {
     assertEquals(Integer.MAX_VALUE, ms.tailMultiset("a", CLOSED).size());
   }
 
-  @GwtIncompatible("reflection")
-  @SuppressUnderAndroid // Reflection bug, or actual binary compatibility problem?
+  @GwtIncompatible // reflection
+  @AndroidIncompatible // Reflection bug, or actual binary compatibility problem?
   public void testElementSetBridgeMethods() {
     for (Method m : TreeMultiset.class.getMethods()) {
       if (m.getName().equals("elementSet") && m.getReturnType().equals(SortedSet.class)) {

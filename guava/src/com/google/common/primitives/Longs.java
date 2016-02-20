@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.RandomAccess;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 
 /**
@@ -49,7 +48,6 @@ import javax.annotation.Nullable;
  * @author Kevin Bourrillion
  * @since 1.0
  */
-@CheckReturnValue
 @GwtCompatible
 public final class Longs {
   private Longs() {}
@@ -454,8 +452,13 @@ public final class Longs {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and
-   * longs using {@link Long#decode} and {@link Long#toString()}.
+   * Returns a serializable converter object that converts between strings and longs using {@link
+   * Long#decode} and {@link Long#toString()}. The returned converter throws {@link
+   * NumberFormatException} if the input string is invalid.
+   *
+   * <p><b>Warning:</b> please see {@link Long#decode} to understand exactly how strings are parsed.
+   * For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the value
+   * {@code 83L}.
    *
    * @since 16.0
    */
@@ -483,16 +486,7 @@ public final class Longs {
   public static long[] ensureCapacity(long[] array, int minLength, int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
-    return (array.length < minLength)
-        ? copyOf(array, minLength + padding)
-        : array;
-  }
-
-  // Arrays.copyOf() requires Java 6
-  private static long[] copyOf(long[] original, int length) {
-    long[] copy = new long[length];
-    System.arraycopy(original, 0, copy, 0, Math.min(original.length, length));
-    return copy;
+    return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
   }
 
   /**
@@ -552,6 +546,11 @@ public final class Longs {
         }
       }
       return left.length - right.length;
+    }
+
+    @Override
+    public String toString() {
+      return "Longs.lexicographicalComparator()";
     }
   }
 

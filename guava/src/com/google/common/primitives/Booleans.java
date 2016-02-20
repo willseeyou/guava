@@ -33,7 +33,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.RandomAccess;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 
 /**
@@ -47,7 +46,6 @@ import javax.annotation.Nullable;
  * @author Kevin Bourrillion
  * @since 1.0
  */
-@CheckReturnValue
 @GwtCompatible
 public final class Booleans {
   private Booleans() {}
@@ -226,16 +224,7 @@ public final class Booleans {
   public static boolean[] ensureCapacity(boolean[] array, int minLength, int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
-    return (array.length < minLength)
-        ? copyOf(array, minLength + padding)
-        : array;
-  }
-
-  // Arrays.copyOf() requires Java 6
-  private static boolean[] copyOf(boolean[] original, int length) {
-    boolean[] copy = new boolean[length];
-    System.arraycopy(original, 0, copy, 0, Math.min(original.length, length));
-    return copy;
+    return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
   }
 
   /**
@@ -295,6 +284,11 @@ public final class Booleans {
         }
       }
       return left.length - right.length;
+    }
+
+    @Override
+    public String toString() {
+      return "Booleans.lexicographicalComparator()";
     }
   }
 

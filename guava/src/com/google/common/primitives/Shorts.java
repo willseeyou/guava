@@ -35,8 +35,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.RandomAccess;
 
-import javax.annotation.CheckReturnValue;
-
 /**
  * Static utility methods pertaining to {@code short} primitives, that are not
  * already found in either {@link Short} or {@link Arrays}.
@@ -48,7 +46,6 @@ import javax.annotation.CheckReturnValue;
  * @author Kevin Bourrillion
  * @since 1.0
  */
-@CheckReturnValue
 @GwtCompatible(emulated = true)
 public final class Shorts {
   private Shorts() {}
@@ -296,7 +293,7 @@ public final class Shorts {
    * {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable
    * buffer.
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static byte[] toByteArray(short value) {
     return new byte[] {
       (byte) (value >> 8),
@@ -316,7 +313,7 @@ public final class Shorts {
    * @throws IllegalArgumentException if {@code bytes} has fewer than 2
    *     elements
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static short fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
@@ -329,7 +326,7 @@ public final class Shorts {
    *
    * @since 7.0
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static short fromBytes(byte b1, byte b2) {
     return (short) ((b1 << 8) | (b2 & 0xFF));
   }
@@ -361,8 +358,13 @@ public final class Shorts {
   }
 
   /**
-   * Returns a serializable converter object that converts between strings and
-   * shorts using {@link Short#decode} and {@link Short#toString()}.
+   * Returns a serializable converter object that converts between strings and shorts using {@link
+   * Short#decode} and {@link Short#toString()}. The returned converter throws {@link
+   * NumberFormatException} if the input string is invalid.
+   *
+   * <p><b>Warning:</b> please see {@link Short#decode} to understand exactly how strings are
+   * parsed. For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the
+   * value {@code 83}.
    *
    * @since 16.0
    */
@@ -390,16 +392,7 @@ public final class Shorts {
   public static short[] ensureCapacity(short[] array, int minLength, int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
-    return (array.length < minLength)
-        ? copyOf(array, minLength + padding)
-        : array;
-  }
-
-  // Arrays.copyOf() requires Java 6
-  private static short[] copyOf(short[] original, int length) {
-    short[] copy = new short[length];
-    System.arraycopy(original, 0, copy, 0, Math.min(original.length, length));
-    return copy;
+    return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
   }
 
   /**
@@ -459,6 +452,11 @@ public final class Shorts {
         }
       }
       return left.length - right.length;
+    }
+
+    @Override
+    public String toString() {
+      return "Shorts.lexicographicalComparator()";
     }
   }
 

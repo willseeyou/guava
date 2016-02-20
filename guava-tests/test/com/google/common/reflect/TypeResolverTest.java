@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @author Ben Yu
  */
-@SuppressUnderAndroid // lots of failures, possibly some related to bad equals() implementations?
+@AndroidIncompatible // lots of failures, possibly some related to bad equals() implementations?
 public class TypeResolverTest extends TestCase {
 
   public void testWhere_noMapping() {
@@ -112,11 +112,11 @@ public class TypeResolverTest extends TestCase {
         .where(new TypeCapture<List<T>>() {}.capture(),
             new TypeCapture<List<String>>() {}.capture())
         .resolveType(t));
-    assertEquals(t, new TypeResolver()
+    assertEquals(Types.subtypeOf(String.class), new TypeResolver()
         .where(new TypeCapture<List<T>>() {}.capture(),
             new TypeCapture<List<? extends String>>() {}.capture())
         .resolveType(t));
-    assertEquals(t, new TypeResolver()
+    assertEquals(Types.supertypeOf(String.class), new TypeResolver()
         .where(new TypeCapture<List<T>>() {}.capture(),
             new TypeCapture<List<? super String>>() {}.capture())
         .resolveType(t));
@@ -238,11 +238,12 @@ public class TypeResolverTest extends TestCase {
   public <T> void testWhere_mapFromBoundedWildcard() {
     Type subType = new TypeCapture<TypedKeyMap<T>>() {}.capture();
     // TODO(benyu): This should check equality to an expected value, see discussion in cl/98674873
-    new TypeResolver()
-        .where(
-            new TypeCapture<Map<Integer, T>>() {}.capture(),
-            new TypeCapture<Map<? extends Number, ? extends Number>>() {}.capture())
-        .resolveType(subType);
+    Type unused =
+        new TypeResolver()
+            .where(
+                new TypeCapture<Map<Integer, T>>() {}.capture(),
+                new TypeCapture<Map<? extends Number, ? extends Number>>() {}.capture())
+            .resolveType(subType);
   }
 
   interface TypedKeyMap<T> extends Map<Integer, T> {}

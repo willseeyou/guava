@@ -49,13 +49,15 @@ import java.util.EnumSet;
  */
 public class ByteSourceTest extends IoTestCase {
 
-  @SuppressUnderAndroid // Android doesn't understand suites whose tests lack default constructors.
+  @AndroidIncompatible // Android doesn't understand suites whose tests lack default constructors.
   public static TestSuite suite() {
     TestSuite suite = new TestSuite();
-    suite.addTest(ByteSourceTester.tests("ByteSource.wrap[byte[]]",
-        SourceSinkFactories.byteArraySourceFactory(), true));
-    suite.addTest(ByteSourceTester.tests("ByteSource.empty[]",
-        SourceSinkFactories.emptyByteSourceFactory(), true));
+    for (boolean asCharSource : new boolean[] {false, true}) {
+      suite.addTest(ByteSourceTester.tests("ByteSource.wrap[byte[]]",
+          SourceSinkFactories.byteArraySourceFactory(), asCharSource));
+      suite.addTest(ByteSourceTester.tests("ByteSource.empty[]",
+          SourceSinkFactories.emptyByteSourceFactory(), asCharSource));
+    }
     suite.addTestSuite(ByteSourceTest.class);
     return suite;
   }

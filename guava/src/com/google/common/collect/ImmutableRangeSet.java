@@ -16,6 +16,7 @@ package com.google.common.collect;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkElementIndex;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.SortedLists.KeyAbsentBehavior.NEXT_HIGHER;
 import static com.google.common.collect.SortedLists.KeyAbsentBehavior.NEXT_LOWER;
 import static com.google.common.collect.SortedLists.KeyPresentBehavior.ANY_PRESENT;
 
@@ -41,6 +42,7 @@ import javax.annotation.Nullable;
  * @since 14.0
  */
 @Beta
+@GwtIncompatible
 public final class ImmutableRangeSet<C extends Comparable> extends AbstractRangeSet<C>
     implements Serializable {
 
@@ -110,7 +112,26 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     this.complement = complement;
   }
 
-  private transient final ImmutableList<Range<C>> ranges;
+  private final transient ImmutableList<Range<C>> ranges;
+
+  @Override
+  public boolean intersects(Range<C> otherRange) {
+    int ceilingIndex = SortedLists.binarySearch(
+        ranges,
+        Range.<C>lowerBoundFn(),
+        otherRange.lowerBound,
+        Ordering.natural(),
+        ANY_PRESENT,
+        NEXT_HIGHER);
+    if (ceilingIndex < ranges.size()
+        && ranges.get(ceilingIndex).isConnected(otherRange)
+        && !ranges.get(ceilingIndex).intersection(otherRange).isEmpty()) {
+      return true;
+    }
+    return ceilingIndex > 0
+        && ranges.get(ceilingIndex - 1).isConnected(otherRange)
+        && !ranges.get(ceilingIndex - 1).intersection(otherRange).isEmpty();
+  }
 
   @Override
   public boolean encloses(Range<C> otherRange) {
@@ -155,21 +176,49 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     return ranges.isEmpty();
   }
 
+  /**
+   * Guaranteed to throw an exception and leave the {@code RangeSet} unmodified.
+   *
+   * @throws UnsupportedOperationException always
+   * @deprecated Unsupported operation.
+   */
+  @Deprecated
   @Override
   public void add(Range<C> range) {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Guaranteed to throw an exception and leave the {@code RangeSet} unmodified.
+   *
+   * @throws UnsupportedOperationException always
+   * @deprecated Unsupported operation.
+   */
+  @Deprecated
   @Override
   public void addAll(RangeSet<C> other) {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Guaranteed to throw an exception and leave the {@code RangeSet} unmodified.
+   *
+   * @throws UnsupportedOperationException always
+   * @deprecated Unsupported operation.
+   */
+  @Deprecated
   @Override
   public void remove(Range<C> range) {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Guaranteed to throw an exception and leave the {@code RangeSet} unmodified.
+   *
+   * @throws UnsupportedOperationException always
+   * @deprecated Unsupported operation.
+   */
+  @Deprecated
   @Override
   public void removeAll(RangeSet<C> other) {
     throw new UnsupportedOperationException();

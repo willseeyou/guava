@@ -33,7 +33,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.RandomAccess;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 
 /**
@@ -50,7 +49,6 @@ import javax.annotation.Nullable;
  * @author Kevin Bourrillion
  * @since 1.0
  */
-@CheckReturnValue
 @GwtCompatible(emulated = true)
 public final class Chars {
   private Chars() {}
@@ -289,7 +287,7 @@ public final class Chars {
    * {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable
    * buffer.
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static byte[] toByteArray(char value) {
     return new byte[] {(byte) (value >> 8), (byte) value};
   }
@@ -306,7 +304,7 @@ public final class Chars {
    * @throws IllegalArgumentException if {@code bytes} has fewer than 2
    *     elements
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static char fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
@@ -319,7 +317,7 @@ public final class Chars {
    *
    * @since 7.0
    */
-  @GwtIncompatible("doesn't work")
+  @GwtIncompatible // doesn't work
   public static char fromBytes(byte b1, byte b2) {
     return (char) ((b1 << 8) | (b2 & 0xFF));
   }
@@ -343,16 +341,7 @@ public final class Chars {
   public static char[] ensureCapacity(char[] array, int minLength, int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
-    return (array.length < minLength)
-        ? copyOf(array, minLength + padding)
-        : array;
-  }
-
-  // Arrays.copyOf() requires Java 6
-  private static char[] copyOf(char[] original, int length) {
-    char[] copy = new char[length];
-    System.arraycopy(original, 0, copy, 0, Math.min(original.length, length));
-    return copy;
+    return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
   }
 
   /**
@@ -412,6 +401,11 @@ public final class Chars {
         }
       }
       return left.length - right.length;
+    }
+
+    @Override
+    public String toString() {
+      return "Chars.lexicographicalComparator()";
     }
   }
 

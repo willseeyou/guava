@@ -70,11 +70,6 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
     new ListIteratorTester<E>(
         listListIteratorTesterNumIterations(), singleton(e4()), features,
         Helpers.copyToList(getOrderedElements()), 0) {
-      {
-        // TODO: don't set this universally
-        stopTestingWhenAddThrowsException();
-      }
-
       @Override protected ListIterator<E> newTargetIterator() {
         resetCollection();
         return getList().listIterator();
@@ -115,7 +110,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
    * href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6570575">Sun bug
    * 6570575</a> is fixed.
    */
-  @GwtIncompatible("reflection")
+  @GwtIncompatible // reflection
   public static Method getListIteratorFullyModifiableMethod() {
     return Helpers.getMethod(
         ListListIteratorTester.class, "testListIterator_fullyModifiable");
@@ -126,7 +121,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
    * {@link #testListIterator_unmodifiable()} so that it can be suppressed in
    * GWT tests.
    */
-  @GwtIncompatible("reflection")
+  @GwtIncompatible // reflection
   public static Method getListIteratorUnmodifiableMethod() {
     return Helpers.getMethod(
         ListListIteratorTester.class, "testListIterator_unmodifiable");

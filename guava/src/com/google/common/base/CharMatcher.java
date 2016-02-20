@@ -1,17 +1,15 @@
 /*
  * Copyright (C) 2008 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.google.common.base;
@@ -27,8 +25,6 @@ import com.google.common.annotations.VisibleForTesting;
 
 import java.util.Arrays;
 import java.util.BitSet;
-
-import javax.annotation.CheckReturnValue;
 
 /**
  * Determines a true or false value for any Java {@code char} value, just as {@link Predicate} does
@@ -47,9 +43,9 @@ import javax.annotation.CheckReturnValue;
  *   String trimmed = {@link #whitespace() whitespace()}.{@link #trimFrom trimFrom}(userInput);
  *   if ({@link #ascii() ascii()}.{@link #matchesAllOf matchesAllOf}(s)) { ... }</pre>
  *
- * <p>See the Guava User Guide article on <a href=
- * "https://github.com/google/guava/wiki/StringsExplained#charmatcher">
- * {@code CharMatcher}</a>.
+ * <p>See the Guava User Guide article on
+ * <a href="https://github.com/google/guava/wiki/StringsExplained#charmatcher">{@code CharMatcher}
+ * </a>.
  *
  * @author Kevin Bourrillion
  * @since 1.0
@@ -80,13 +76,14 @@ public abstract class CharMatcher implements Predicate<Character> {
 
   /**
    * Determines whether a character is whitespace according to the latest Unicode standard, as
-   * illustrated <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D">here</a>.
-   * This is not the same definition used by other Java APIs. (See a <a
-   * href="http://spreadsheets.google.com/pub?key=pd8dAQyHbdewRsnE5x5GzKQ">comparison of several
+   * illustrated
+   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D">here</a>.
+   * This is not the same definition used by other Java APIs. (See a
+   * <a href="http://spreadsheets.google.com/pub?key=pd8dAQyHbdewRsnE5x5GzKQ">comparison of several
    * definitions of "whitespace"</a>.)
    *
-   * <p><b>Note:</b> as the Unicode definition evolves, we will modify this matcher to keep it up
-   * to date.
+   * <p><b>Note:</b> as the Unicode definition evolves, we will modify this matcher to keep it up to
+   * date.
    *
    * @since 19.0 (since 1.0 as constant {@code WHITESPACE})
    */
@@ -116,8 +113,8 @@ public abstract class CharMatcher implements Predicate<Character> {
 
   /**
    * Determines whether a character is a digit according to
-   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bdigit%7D">Unicode</a>.
-   * If you only care to match ASCII digits, you can use {@code inRange('0', '9')}.
+   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bdigit%7D">Unicode</a>. If
+   * you only care to match ASCII digits, you can use {@code inRange('0', '9')}.
    *
    * @since 19.0 (since 1.0 as constant {@code DIGIT})
    */
@@ -148,8 +145,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   }
 
   /**
-   * Determines whether a character is a letter or digit according to {@linkplain
-   * Character#isLetterOrDigit(char) Java's definition}.
+   * Determines whether a character is a letter or digit according to
+   * {@linkplain Character#isLetterOrDigit(char) Java's definition}.
    *
    * @since 19.0 (since 1.0 as constant {@code JAVA_LETTER_OR_DIGIT}).
    */
@@ -158,8 +155,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   }
 
   /**
-   * Determines whether a character is upper case according to {@linkplain
-   * Character#isUpperCase(char) Java's definition}.
+   * Determines whether a character is upper case according to
+   * {@linkplain Character#isUpperCase(char) Java's definition}.
    *
    * @since 19.0 (since 1.0 as constant {@code JAVA_UPPER_CASE})
    */
@@ -168,8 +165,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   }
 
   /**
-   * Determines whether a character is lower case according to {@linkplain
-   * Character#isLowerCase(char) Java's definition}.
+   * Determines whether a character is lower case according to
+   * {@linkplain Character#isLowerCase(char) Java's definition}.
    *
    * @since 19.0 (since 1.0 as constant {@code JAVA_LOWER_CASE})
    */
@@ -178,8 +175,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   }
 
   /**
-   * Determines whether a character is an ISO control character as specified by {@link
-   * Character#isISOControl(char)}.
+   * Determines whether a character is an ISO control character as specified by
+   * {@link Character#isISOControl(char)}.
    *
    * @since 19.0 (since 1.0 as constant {@code JAVA_ISO_CONTROL})
    */
@@ -217,9 +214,10 @@ public abstract class CharMatcher implements Predicate<Character> {
 
   /**
    * Determines whether a character is whitespace according to the latest Unicode standard, as
-   * illustrated <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D">here</a>.
-   * This is not the same definition used by other Java APIs. (See a <a
-   * href="http://spreadsheets.google.com/pub?key=pd8dAQyHbdewRsnE5x5GzKQ">comparison of several
+   * illustrated
+   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D">here</a>.
+   * This is not the same definition used by other Java APIs. (See a
+   * <a href="http://spreadsheets.google.com/pub?key=pd8dAQyHbdewRsnE5x5GzKQ">comparison of several
    * definitions of "whitespace"</a>.)
    *
    * <p><b>Note:</b> as the Unicode definition evolves, we will modify this constant to keep it up
@@ -243,8 +241,8 @@ public abstract class CharMatcher implements Predicate<Character> {
 
   /**
    * Determines whether a character is a digit according to
-   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bdigit%7D">Unicode</a>.
-   * If you only care to match ASCII digits, you can use {@code inRange('0', '9')}.
+   * <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bdigit%7D">Unicode</a>. If
+   * you only care to match ASCII digits, you can use {@code inRange('0', '9')}.
    */
   public static final CharMatcher DIGIT = digit();
 
@@ -263,26 +261,26 @@ public abstract class CharMatcher implements Predicate<Character> {
   public static final CharMatcher JAVA_LETTER = javaLetter();
 
   /**
-   * Determines whether a character is a letter or digit according to {@linkplain
-   * Character#isLetterOrDigit(char) Java's definition}.
+   * Determines whether a character is a letter or digit according to
+   * {@linkplain Character#isLetterOrDigit(char) Java's definition}.
    */
   public static final CharMatcher JAVA_LETTER_OR_DIGIT = javaLetterOrDigit();
 
   /**
-   * Determines whether a character is upper case according to {@linkplain
-   * Character#isUpperCase(char) Java's definition}.
+   * Determines whether a character is upper case according to
+   * {@linkplain Character#isUpperCase(char) Java's definition}.
    */
   public static final CharMatcher JAVA_UPPER_CASE = javaUpperCase();
 
   /**
-   * Determines whether a character is lower case according to {@linkplain
-   * Character#isLowerCase(char) Java's definition}.
+   * Determines whether a character is lower case according to
+   * {@linkplain Character#isLowerCase(char) Java's definition}.
    */
   public static final CharMatcher JAVA_LOWER_CASE = javaLowerCase();
 
   /**
-   * Determines whether a character is an ISO control character as specified by {@link
-   * Character#isISOControl(char)}.
+   * Determines whether a character is an ISO control character as specified by
+   * {@link Character#isISOControl(char)}.
    */
   public static final CharMatcher JAVA_ISO_CONTROL = javaIsoControl();
 
@@ -425,16 +423,16 @@ public abstract class CharMatcher implements Predicate<Character> {
   private static final int DISTINCT_CHARS = Character.MAX_VALUE - Character.MIN_VALUE + 1;
 
   /**
-   * This is the actual implementation of {@link #precomputed}, but we bounce calls through a
-   * method on {@link Platform} so that we can have different behavior in GWT.
+   * This is the actual implementation of {@link #precomputed}, but we bounce calls through a method
+   * on {@link Platform} so that we can have different behavior in GWT.
    *
-   * <p>This implementation tries to be smart in a number of ways.  It recognizes cases where
-   * the negation is cheaper to precompute than the matcher itself; it tries to build small
-   * hash tables for matchers that only match a few characters, and so on.  In the worst-case
-   * scenario, it constructs an eight-kilobyte bit array and queries that.
-   * In many situations this produces a matcher which is faster to query than the original.
+   * <p>This implementation tries to be smart in a number of ways. It recognizes cases where the
+   * negation is cheaper to precompute than the matcher itself; it tries to build small hash tables
+   * for matchers that only match a few characters, and so on. In the worst-case scenario, it
+   * constructs an eight-kilobyte bit array and queries that. In many situations this produces a
+   * matcher which is faster to query than the original.
    */
-  @GwtIncompatible("java.util.BitSet")
+  @GwtIncompatible // java.util.BitSet
   CharMatcher precomputedInternal() {
     final BitSet table = new BitSet();
     setBits(table);
@@ -464,7 +462,7 @@ public abstract class CharMatcher implements Predicate<Character> {
   /**
    * Helper method for {@link #precomputedInternal} that doesn't test if the negation is cheaper.
    */
-  @GwtIncompatible("java.util.BitSet")
+  @GwtIncompatible // java.util.BitSet
   private static CharMatcher precomputedPositive(
       int totalCharacters, BitSet table, String description) {
     switch (totalCharacters) {
@@ -483,7 +481,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
   }
 
-  @GwtIncompatible("SmallCharMatcher")
+  @GwtIncompatible // SmallCharMatcher
   private static boolean isSmall(int totalCharacters, int tableLength) {
     return totalCharacters <= SmallCharMatcher.MAX_SIZE
         && tableLength > (totalCharacters * 4 * Character.SIZE);
@@ -493,7 +491,7 @@ public abstract class CharMatcher implements Predicate<Character> {
   /**
    * Sets bits in {@code table} matched by this matcher.
    */
-  @GwtIncompatible("java.util.BitSet")
+  @GwtIncompatible // java.util.BitSet
   void setBits(BitSet table) {
     for (int c = Character.MAX_VALUE; c >= Character.MIN_VALUE; c--) {
       if (matches((char) c)) {
@@ -527,7 +525,7 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * @param sequence the character sequence to examine, possibly empty
    * @return {@code true} if this matcher matches every character in the sequence, including when
-   *         the sequence is empty
+   *     the sequence is empty
    */
   public boolean matchesAllOf(CharSequence sequence) {
     for (int i = sequence.length() - 1; i >= 0; i--) {
@@ -547,7 +545,7 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * @param sequence the character sequence to examine, possibly empty
    * @return {@code true} if this matcher matches every character in the sequence, including when
-   *         the sequence is empty
+   *     the sequence is empty
    */
   public boolean matchesNoneOf(CharSequence sequence) {
     return indexIn(sequence) == -1;
@@ -557,8 +555,8 @@ public abstract class CharMatcher implements Predicate<Character> {
    * Returns the index of the first matching character in a character sequence, or {@code -1} if no
    * matching character is present.
    *
-   * <p>The default implementation iterates over the sequence in forward order calling {@link
-   * #matches} for each character.
+   * <p>The default implementation iterates over the sequence in forward order calling
+   * {@link #matches} for each character.
    *
    * @param sequence the character sequence to examine from the beginning
    * @return an index, or {@code -1} if no character matches
@@ -578,7 +576,7 @@ public abstract class CharMatcher implements Predicate<Character> {
    * @param start the first index to examine; must be nonnegative and no greater than {@code
    *        sequence.length()}
    * @return the index of the first matching character, guaranteed to be no less than {@code start},
-   *         or {@code -1} if no character matches
+   *     or {@code -1} if no character matches
    * @throws IndexOutOfBoundsException if start is negative or greater than {@code
    *         sequence.length()}
    */
@@ -597,8 +595,8 @@ public abstract class CharMatcher implements Predicate<Character> {
    * Returns the index of the last matching character in a character sequence, or {@code -1} if no
    * matching character is present.
    *
-   * <p>The default implementation iterates over the sequence in reverse order calling {@link
-   * #matches} for each character.
+   * <p>The default implementation iterates over the sequence in reverse order calling
+   * {@link #matches} for each character.
    *
    * @param sequence the character sequence to examine from the end
    * @return an index, or {@code -1} if no character matches
@@ -633,7 +631,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * ... returns {@code "bzr"}.
    */
-  @CheckReturnValue
   public String removeFrom(CharSequence sequence) {
     String string = sequence.toString();
     int pos = indexIn(string);
@@ -671,7 +668,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * ... returns {@code "aaa"}.
    */
-  @CheckReturnValue
   public String retainFrom(CharSequence sequence) {
     return negate().removeFrom(sequence);
   }
@@ -690,10 +686,9 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * @param sequence the character sequence to replace matching characters in
    * @param replacement the character to append to the result string in place of each matching
-   *        character in {@code sequence}
+   *     character in {@code sequence}
    * @return the new string
    */
-  @CheckReturnValue
   public String replaceFrom(CharSequence sequence, char replacement) {
     String string = sequence.toString();
     int pos = indexIn(string);
@@ -723,10 +718,9 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * @param sequence the character sequence to replace matching characters in
    * @param replacement the characters to append to the result string in place of each matching
-   *        character in {@code sequence}
+   *     character in {@code sequence}
    * @return the new string
    */
-  @CheckReturnValue
   public String replaceFrom(CharSequence sequence, CharSequence replacement) {
     int replacementLen = replacement.length();
     if (replacementLen == 0) {
@@ -771,7 +765,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * ... is equivalent to {@link String#trim()}.
    */
-  @CheckReturnValue
   public String trimFrom(CharSequence sequence) {
     int len = sequence.length();
     int first;
@@ -799,7 +792,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * ... returns {@code "catbab"}.
    */
-  @CheckReturnValue
   public String trimLeadingFrom(CharSequence sequence) {
     int len = sequence.length();
     for (int first = 0; first < len; first++) {
@@ -818,7 +810,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * ... returns {@code "abacat"}.
    */
-  @CheckReturnValue
   public String trimTrailingFrom(CharSequence sequence) {
     int len = sequence.length();
     for (int last = len - 1; last >= 0; last--) {
@@ -844,10 +835,9 @@ public abstract class CharMatcher implements Predicate<Character> {
    *
    * @param sequence the character sequence to replace matching groups of characters in
    * @param replacement the character to append to the result string in place of each group of
-   *        matching characters in {@code sequence}
+   *     matching characters in {@code sequence}
    * @return the new string
    */
-  @CheckReturnValue
   public String collapseFrom(CharSequence sequence, char replacement) {
     // This implementation avoids unnecessary allocation.
     int len = sequence.length();
@@ -873,7 +863,6 @@ public abstract class CharMatcher implements Predicate<Character> {
    * groups of matching characters at the start or end of the sequence are removed without
    * replacement.
    */
-  @CheckReturnValue
   public String trimAndCollapseFrom(CharSequence sequence, char replacement) {
     // This implementation avoids unnecessary allocation.
     int len = sequence.length();
@@ -994,7 +983,7 @@ public abstract class CharMatcher implements Predicate<Character> {
   }
 
   /** Fast matcher using a {@link BitSet} table of matching characters. */
-  @GwtIncompatible("java.util.BitSet")
+  @GwtIncompatible // java.util.BitSet
   private static final class BitSetMatcher extends NamedFastMatcher {
 
     private final BitSet table;
@@ -1244,7 +1233,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return TABLE.charAt((MULTIPLIER * c) >>> SHIFT) == c;
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       for (int i = 0; i < TABLE.length(); i++) {
@@ -1466,19 +1455,16 @@ public abstract class CharMatcher implements Predicate<Character> {
   private static final class Invisible extends RangesMatcher {
 
     private static final String RANGE_STARTS =
-      "\u0000\u007f\u00ad\u0600\u061c\u06dd\u070f\u1680\u180e\u2000\u2028\u205f\u2066\u2067"
-          + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
+        "\u0000\u007f\u00ad\u0600\u061c\u06dd\u070f\u1680\u180e\u2000\u2028\u205f\u2066\u2067"
+            + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
     private static final String RANGE_ENDS =
-      "\u0020\u00a0\u00ad\u0604\u061c\u06dd\u070f\u1680\u180e\u200f\u202f\u2064\u2066\u2067"
-          + "\u2068\u2069\u206f\u3000\uf8ff\ufeff\ufff9\ufffb";
+        "\u0020\u00a0\u00ad\u0604\u061c\u06dd\u070f\u1680\u180e\u200f\u202f\u2064\u2066\u2067"
+            + "\u2068\u2069\u206f\u3000\uf8ff\ufeff\ufff9\ufffb";
 
     static final Invisible INSTANCE = new Invisible();
 
     private Invisible() {
-      super(
-          "CharMatcher.invisible()",
-          RANGE_STARTS.toCharArray(),
-          RANGE_ENDS.toCharArray());
+      super("CharMatcher.invisible()", RANGE_STARTS.toCharArray(), RANGE_ENDS.toCharArray());
     }
   }
 
@@ -1526,7 +1512,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return sequence.length() - original.countIn(sequence);
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       BitSet tmp = new BitSet();
@@ -1562,7 +1548,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return first.matches(c) && second.matches(c);
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       BitSet tmp1 = new BitSet();
@@ -1590,7 +1576,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       second = checkNotNull(b);
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       first.setBits(table);
@@ -1644,7 +1630,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return isNot(match);
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       table.set(match);
@@ -1680,7 +1666,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return other.matches(match) ? any() : this;
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       table.set(0, match);
@@ -1718,7 +1704,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return c == match1 || c == match2;
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       table.set(match1);
@@ -1747,7 +1733,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     @Override
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     void setBits(BitSet table) {
       for (char c : chars) {
         table.set(c);
@@ -1782,7 +1768,7 @@ public abstract class CharMatcher implements Predicate<Character> {
       return startInclusive <= c && c <= endInclusive;
     }
 
-    @GwtIncompatible("java.util.BitSet")
+    @GwtIncompatible // java.util.BitSet
     @Override
     void setBits(BitSet table) {
       table.set(startInclusive, endInclusive + 1);
